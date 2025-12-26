@@ -28,7 +28,7 @@ const toggleOpen = () => {
         <p class="snippet">{{ item.snippet }}</p>
 
         <div class="meta-data">
-          <small>ID: {{ item.id }} • Category: Finance</small>
+          <small>ID: {{ item.id }} / Category: {{item.category}}</small>
         </div>
       </div>
     </Transition>

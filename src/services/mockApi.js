@@ -37,11 +37,11 @@ const MockData = [
 ]
 
 export const fetchSearchResults = (query) => {
-  return new Promise((resolve, reject) => { // added promise because of hardcoded data
+  return new Promise((resolve) => { // added promise because of hardcoded data
     const latency = 500; // to simulate latency
     setTimeout(() => {
       if (!query) {
-        resolve([]);
+        resolve(MockData);
       }
 
       const queryCase = query.toLowerCase();

@@ -1,44 +1,30 @@
 # ./
+Vue.js Search UI - Saras Finance Assignment
 
-This template should help get you started developing with Vue 3 in Vite.
+A responsive, interactive search application built with **Vue 3**. This project features a polished UI with real-time search, infinite scrolling, and fluid animations.
 
-## Recommended IDE Setup
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 🛠️ Tech Stack
 
-## Recommended Browser Setup
+* **Framework:** Vue.js 3 (`<script setup>` Composition API)
+* **Styling:** Plain CSS3 (Scoped, Flexbox, Transitions) - *No external UI libraries used.*
+* **Data Source:** [DummyJSON](https://dummyjson.com/) (Used to simulate real server-side pagination and search).
+* **Tooling:** Vite
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
 
-## Customize configuration
+## ⚙️ Setup & Run
+Clone the repository:
+```sh
+git clone https://github.com/Shantanu-Tiwari/saras-assignment
+cd saras-assignment
+```
+Install dependencies:
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
 
 ```sh
 npm install
 ```
-
-### Compile and Hot-Reload for Development
-
+Run the development server:
 ```sh
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```

@@ -68,7 +68,7 @@ const loadMore = async () => {
     isLoadingMore.value = false
   }
 }
-
+// using on mounted to let the  ref load and then attach observer
 onMounted(() => {
   observer = new IntersectionObserver(
     (entries) => {

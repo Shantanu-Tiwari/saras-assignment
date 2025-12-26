@@ -18,6 +18,9 @@ const toggleOpen = () => {
 <template>
   <div class="result-item" :class="{ 'is-open': isOpen }">
     <div class="result-header" @click="toggleOpen">
+      <!--
+      if open display the rest of the details
+    -->
       <h3 class="result-title">{{ item.title }}</h3>
 
       <span class="chevron" :class="{ rotate: isOpen }">▼</span>
@@ -28,7 +31,7 @@ const toggleOpen = () => {
         <p class="snippet">{{ item.snippet }}</p>
 
         <div class="meta-data">
-          <small>ID: {{ item.id }} / Category: {{item.category}}</small>
+          <small>ID: {{ item.id }} / Category: {{ item.category }}</small>
         </div>
       </div>
     </Transition>

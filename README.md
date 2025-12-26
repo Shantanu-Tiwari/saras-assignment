@@ -1,5 +1,5 @@
-# ./
-Vue.js Search UI - Saras Finance Assignment
+# Vue.js Search UI - Saras Finance Assignment
+
 
 A responsive, interactive search application built with **Vue 3**. This project features a polished UI with real-time search, infinite scrolling, and fluid animations.
 

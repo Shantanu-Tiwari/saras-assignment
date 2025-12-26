@@ -18,7 +18,7 @@ defineProps({
         v-for="(result, index) in results"
         :key="result.id"
         class="list-item-container"
-        :style="{ transitionDelay: `${index * 100}ms` }"
+        :style="{ transitionDelay: `${(index%10)*100}ms` }"
       >
         <SearchResultItem :item="result" />
       </div>

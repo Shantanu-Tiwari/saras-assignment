@@ -2,7 +2,7 @@
 import SearchBar from '@/components/SearchBar.vue'
 import { fetchSearchResults } from '@/services/mockApi.js'
 import SearchResultList from '@/components/SearchResultList.vue'
-import { ref, watch } from 'vue'
+import { onUnmounted, ref, watch } from 'vue'
 import { delay } from '@/utils/optimisation.js'
 import { onMounted } from 'vue'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
@@ -11,6 +11,13 @@ const searchQuery = ref('')
 const result = ref([])
 const isLoading = ref(false)
 const error = ref(null)
+const isLoadingMore = ref(false)
+
+const page = ref(1)
+const moreData = ref(true)
+
+const bottomSensor = ref(null) // to trigger infinite scrolling
+let observer = null
 
 onMounted(() => {
   isLoading.value = true
@@ -28,8 +35,9 @@ const searching = delay(async (query) => {
   try {
     isLoading.value = true
     error.value = null
-
-    result.value = await fetchSearchResults(query)
+    page.value = 1
+    moreData.value = true
+    result.value = await fetchSearchResults(query, 1)
   } catch (err) {
     // logging error
     error.value = 'Error while fetching results.'
@@ -39,6 +47,46 @@ const searching = delay(async (query) => {
   }
 }, 300)
 
+const loadMore = async () => {
+  if (isLoading.value || isLoadingMore.value || !moreData.value) {
+    return
+  }
+  try {
+    isLoadingMore.value = true
+    const nextPage = page.value + 1
+
+    const newItems = await fetchSearchResults(searchQuery.value, nextPage)
+    if (newItems.length === 0) {
+      moreData.value = false
+    } else {
+      result.value.push(...newItems)
+      page.value = nextPage
+    }
+  } catch (error) {
+    console.error(error)
+  } finally {
+    isLoadingMore.value = false
+  }
+}
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        loadMore()
+      }
+    },
+    {
+      rootMargin: '100px',
+    },
+  )
+  if (bottomSensor.value) {
+    observer.observe(bottomSensor.value)
+  }
+})
+onUnmounted(() => {
+  if (observer) observer.disconnect()
+})
 // changes in the search
 watch(searchQuery, (newValu) => {
   searching(newValu)
@@ -51,7 +99,10 @@ watch(searchQuery, (newValu) => {
       <SearchBar class="search-bar" v-model="searchQuery" />
       <LoadingSpinner v-if="isLoading" />
       <div v-else-if="error" style="color: darkred">{{ error }}</div>
-      <SearchResultList v-else :results="result" class="card-width"/>
+      <SearchResultList v-else :results="result" class="card-width" />
+      <div ref="bottomSensor" class="sensor-container">
+        <p v-if="isLoadingMore">Loading more data...</p>
+      </div>
     </header>
   </main>
 </template>
@@ -84,5 +135,10 @@ watch(searchQuery, (newValu) => {
 
   display: flex;
   align-items: center;
+}
+.sensor-container {
+  height: 20px;
+  margin-top: 20px;
+  text-align: center;
 }
 </style>
